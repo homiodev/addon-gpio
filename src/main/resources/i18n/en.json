@@ -1,0 +1,38 @@
+{
+  "DIGITAL_INPUT": "Input",
+  "DIGITAL_OUTPUT": "Output",
+  "ANALOG_INPUT": "Input(A)",
+  "ANALOG_OUTPUT": "Output(A)",
+  "ONE_WIRE": "1-Wire",
+  "PWM": "Pwm",
+  "field": {
+    "gpioProvider": "Gpio provider",
+    "pull": "Pull",
+    "mode": "Mode",
+    "pin": "Pin",
+    "oneWireInterval": "1-Wire interval"
+  },
+  "help": {
+    "field": {
+      "oneWireInterval": "Minimum interval to fetch new value from 1-Wire device. Otherwise cached value used"
+    }
+  },
+  "selection": {
+    "GpioEntity": "Gpio service"
+  },
+  "ACTION": {
+    "PULL_UP_RESISTOR": "Pull up resister",
+    "PULL_DOWN_RESISTOR": "Pull down resister",
+    "SET_HIGH": "Set HIGH state",
+    "SET_LOW": "Set LOW state"
+  },
+  "workspace": {
+    "gpio": "Gpio",
+    "gpio_set_gpio": "Set gpio pin value",
+    "gpio_set_pwm_gpio": "Set gpio pin pwm(0-255) value",
+    "gpio_get_gpio": "Get gpio pin value",
+    "gpio_set_pull": "Set gpio pin pull",
+    "gpio_when_gpio": "Handle next block when gpio switched to state",
+    "gpio_DS18B20_value": "Get DS18B20 temperature value"
+  }
+}
