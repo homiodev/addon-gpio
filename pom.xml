@@ -55,6 +55,10 @@
   <modelVersion>4.0.0</modelVersion>
   <name>Gpio</name>
   <packaging>jar</packaging>
+  
+  <properties>
+    <category>Microcontrollers</category>
+  </properties>
 
   <parent>
     <artifactId>addon-parent</artifactId>
