@@ -1,4 +1,4 @@
-package org.touchhome.bundle.gpio.gpio.mode;
+package org.homio.bundle.gpio.gpio.mode;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

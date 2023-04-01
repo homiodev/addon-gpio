@@ -1,4 +1,4 @@
-package org.touchhome.bundle.gpio.gpio;
+package org.homio.bundle.gpio.gpio;
 
 import java.util.Set;
 import lombok.AllArgsConstructor;
@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.touchhome.bundle.gpio.gpio.mode.PinMode;
+import org.homio.bundle.gpio.gpio.mode.PinMode;
 
 @Getter
 @AllArgsConstructor

@@ -1,4 +1,4 @@
-package org.touchhome.bundle.gpio.gpio;
+package org.homio.bundle.gpio.gpio;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

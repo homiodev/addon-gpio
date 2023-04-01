@@ -1,6 +1,4 @@
-package org.touchhome.bundle.gpio;
-
-import static org.touchhome.bundle.gpio.GpioEntrypoint.readBoardType;
+package org.homio.bundle.gpio;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pi4j.plugin.mock.Mock;
@@ -16,24 +14,24 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import lombok.Getter;
 import lombok.Setter;
+import org.homio.bundle.gpio.gpio.GPIOService;
+import org.homio.bundle.gpio.gpio.GpioPinEntity;
+import org.homio.bundle.gpio.gpio.GpioProviderIdModel;
 import org.jetbrains.annotations.NotNull;
-import org.touchhome.bundle.api.EntityContext;
-import org.touchhome.bundle.api.entity.types.MicroControllerBaseEntity;
-import org.touchhome.bundle.api.model.HasEntityIdentifier;
-import org.touchhome.bundle.api.model.HasEntityLog;
-import org.touchhome.bundle.api.model.OptionModel;
-import org.touchhome.bundle.api.service.EntityService;
-import org.touchhome.bundle.api.ui.UISidebarChildren;
-import org.touchhome.bundle.api.ui.action.DynamicOptionLoader;
-import org.touchhome.bundle.api.ui.field.UIField;
-import org.touchhome.bundle.api.ui.field.UIFieldSlider;
-import org.touchhome.bundle.api.ui.field.inline.UIFieldInlineEditEntities;
-import org.touchhome.bundle.api.ui.field.inline.UIFieldInlineEntities;
-import org.touchhome.bundle.api.ui.field.selection.UIFieldSelection;
-import org.touchhome.bundle.api.util.BoardInfo;
-import org.touchhome.bundle.gpio.gpio.GPIOService;
-import org.touchhome.bundle.gpio.gpio.GpioPinEntity;
-import org.touchhome.bundle.gpio.gpio.GpioProviderIdModel;
+import org.homio.bundle.api.EntityContext;
+import org.homio.bundle.api.entity.types.MicroControllerBaseEntity;
+import org.homio.bundle.api.model.HasEntityIdentifier;
+import org.homio.bundle.api.model.HasEntityLog;
+import org.homio.bundle.api.model.OptionModel;
+import org.homio.bundle.api.service.EntityService;
+import org.homio.bundle.api.ui.UISidebarChildren;
+import org.homio.bundle.api.ui.action.DynamicOptionLoader;
+import org.homio.bundle.api.ui.field.UIField;
+import org.homio.bundle.api.ui.field.UIFieldSlider;
+import org.homio.bundle.api.ui.field.inline.UIFieldInlineEditEntities;
+import org.homio.bundle.api.ui.field.inline.UIFieldInlineEntities;
+import org.homio.bundle.api.ui.field.selection.UIFieldSelection;
+import org.homio.bundle.api.util.BoardInfo;
 
 @Entity
 @UISidebarChildren(icon = "fas fa-keyboard", color = "#92BA1A")
@@ -41,7 +39,7 @@ public final class GpioEntity extends MicroControllerBaseEntity<GpioEntity>
     implements EntityService<GPIOService, GpioEntity>, HasEntityLog, HasEntityIdentifier {
 
     public static final String PREFIX = "gpio_";
-    public static final String BOARD_TYPE = BoardInfo.revision == null ? "UNKNOWN" : readBoardType();
+    public static final String BOARD_TYPE = BoardInfo.revision == null ? "UNKNOWN" : GpioEntrypoint.readBoardType();
 
     private static final Map<String, GpioProviderIdModel> GPIO_PROVIDERS = new HashMap<>();
 
@@ -121,7 +119,7 @@ public final class GpioEntity extends MicroControllerBaseEntity<GpioEntity>
 
     @Override
     public void logBuilder(EntityLogBuilder entityLogBuilder) {
-        entityLogBuilder.addTopic("org.touchhome.bundle.gpio");
+        entityLogBuilder.addTopic("org.homio.bundle.gpio");
     }
 
     @Override

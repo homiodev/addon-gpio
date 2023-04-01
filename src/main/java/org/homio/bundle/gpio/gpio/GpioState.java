@@ -1,4 +1,4 @@
-package org.touchhome.bundle.gpio.gpio;
+package org.homio.bundle.gpio.gpio;
 
 import com.pi4j.io.IO;
 import com.pi4j.io.gpio.digital.PullResistance;
@@ -11,8 +11,8 @@ import lombok.Setter;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.touchhome.bundle.api.state.State;
-import org.touchhome.bundle.gpio.gpio.mode.PinMode;
+import org.homio.bundle.api.state.State;
+import org.homio.bundle.gpio.gpio.mode.PinMode;
 
 @Getter
 @RequiredArgsConstructor

@@ -1,14 +1,14 @@
-package org.touchhome.bundle.gpio.gpio.mode;
+package org.homio.bundle.gpio.gpio.mode;
 
 import com.pi4j.context.Context;
 import com.pi4j.io.gpio.analog.AnalogInput;
 import com.pi4j.io.pwm.Pwm;
 import com.pi4j.io.pwm.PwmType;
-import org.touchhome.bundle.api.exception.ProhibitedExecution;
-import org.touchhome.bundle.api.state.DecimalType;
-import org.touchhome.bundle.api.state.State;
-import org.touchhome.bundle.gpio.gpio.GpioProviderIdModel;
-import org.touchhome.bundle.gpio.gpio.GpioState;
+import org.homio.bundle.gpio.gpio.GpioProviderIdModel;
+import org.homio.bundle.gpio.gpio.GpioState;
+import org.homio.bundle.api.exception.ProhibitedExecution;
+import org.homio.bundle.api.state.DecimalType;
+import org.homio.bundle.api.state.State;
 
 public class PwmModeFactory implements GpioModeFactory<AnalogInput> {
 

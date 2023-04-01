@@ -1,13 +1,13 @@
-package org.touchhome.bundle.gpio;
+package org.homio.bundle.gpio;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.homio.bundle.gpio.gpio.GpioPin;
 import org.springframework.stereotype.Component;
-import org.touchhome.bundle.api.BundleEntrypoint;
-import org.touchhome.bundle.api.EntityContext;
-import org.touchhome.bundle.api.EntityContextVar.VariableType;
-import org.touchhome.bundle.api.util.BoardInfo;
-import org.touchhome.bundle.gpio.gpio.GpioPin;
+import org.homio.bundle.api.BundleEntrypoint;
+import org.homio.bundle.api.EntityContext;
+import org.homio.bundle.api.EntityContextVar.VariableType;
+import org.homio.bundle.api.util.BoardInfo;
 
 @Log4j2
 @Component

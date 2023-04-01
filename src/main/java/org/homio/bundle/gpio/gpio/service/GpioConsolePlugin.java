@@ -1,4 +1,4 @@
-package org.touchhome.bundle.gpio.gpio.service;
+package org.homio.bundle.gpio.gpio.service;
 
 import com.pi4j.io.gpio.digital.PullResistance;
 import java.util.ArrayList;
@@ -9,19 +9,19 @@ import java.util.Set;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.homio.bundle.gpio.gpio.GPIOService;
+import org.homio.bundle.gpio.gpio.GpioPin;
+import org.homio.bundle.gpio.gpio.GpioState;
+import org.homio.bundle.gpio.gpio.mode.PinMode;
 import org.jetbrains.annotations.NotNull;
-import org.touchhome.bundle.api.EntityContext;
-import org.touchhome.bundle.api.console.ConsolePluginTable;
-import org.touchhome.bundle.api.model.HasEntityIdentifier;
-import org.touchhome.bundle.api.state.State;
-import org.touchhome.bundle.api.ui.field.UIField;
-import org.touchhome.bundle.api.ui.field.UIFieldType;
-import org.touchhome.bundle.api.ui.field.color.UIFieldColorMatch;
-import org.touchhome.bundle.api.ui.field.color.UIFieldColorRef;
-import org.touchhome.bundle.gpio.gpio.GPIOService;
-import org.touchhome.bundle.gpio.gpio.GpioPin;
-import org.touchhome.bundle.gpio.gpio.GpioState;
-import org.touchhome.bundle.gpio.gpio.mode.PinMode;
+import org.homio.bundle.api.EntityContext;
+import org.homio.bundle.api.console.ConsolePluginTable;
+import org.homio.bundle.api.model.HasEntityIdentifier;
+import org.homio.bundle.api.state.State;
+import org.homio.bundle.api.ui.field.UIField;
+import org.homio.bundle.api.ui.field.UIFieldType;
+import org.homio.bundle.api.ui.field.color.UIFieldColorMatch;
+import org.homio.bundle.api.ui.field.color.UIFieldColorRef;
 
 @RequiredArgsConstructor
 public class GpioConsolePlugin implements ConsolePluginTable<GpioConsolePlugin.GpioPluginEntity> {

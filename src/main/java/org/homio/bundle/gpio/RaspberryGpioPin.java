@@ -1,9 +1,9 @@
-package org.touchhome.bundle.gpio;
+package org.homio.bundle.gpio;
 
-import static org.touchhome.bundle.gpio.gpio.mode.PinMode.DIGITAL_INPUT;
-import static org.touchhome.bundle.gpio.gpio.mode.PinMode.DIGITAL_OUTPUT;
-import static org.touchhome.bundle.gpio.gpio.mode.PinMode.ONE_WIRE;
-import static org.touchhome.bundle.gpio.gpio.mode.PinMode.PWM;
+import static org.homio.bundle.gpio.gpio.mode.PinMode.DIGITAL_INPUT;
+import static org.homio.bundle.gpio.gpio.mode.PinMode.DIGITAL_OUTPUT;
+import static org.homio.bundle.gpio.gpio.mode.PinMode.ONE_WIRE;
+import static org.homio.bundle.gpio.gpio.mode.PinMode.PWM;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.touchhome.bundle.gpio.gpio.GpioPin;
-import org.touchhome.bundle.gpio.gpio.mode.PinMode;
+import org.homio.bundle.gpio.gpio.GpioPin;
+import org.homio.bundle.gpio.gpio.mode.PinMode;
 
 @Getter
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)

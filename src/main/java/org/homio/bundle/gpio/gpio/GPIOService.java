@@ -1,4 +1,4 @@
-package org.touchhome.bundle.gpio.gpio;
+package org.homio.bundle.gpio.gpio;
 
 import com.pi4j.Pi4J;
 import com.pi4j.context.Context;
@@ -38,13 +38,13 @@ import org.apache.commons.lang3.tuple.MutablePair;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Value;
-import org.touchhome.bundle.api.EntityContext;
-import org.touchhome.bundle.api.EntityContextSetting;
-import org.touchhome.bundle.api.service.EntityService.ServiceInstance;
-import org.touchhome.bundle.api.state.State;
-import org.touchhome.bundle.gpio.GpioEntity;
-import org.touchhome.bundle.gpio.gpio.mode.PinMode;
-import org.touchhome.bundle.gpio.gpio.service.GpioConsolePlugin;
+import org.homio.bundle.api.EntityContext;
+import org.homio.bundle.api.EntityContextSetting;
+import org.homio.bundle.api.service.EntityService.ServiceInstance;
+import org.homio.bundle.api.state.State;
+import org.homio.bundle.gpio.GpioEntity;
+import org.homio.bundle.gpio.gpio.mode.PinMode;
+import org.homio.bundle.gpio.gpio.service.GpioConsolePlugin;
 
 @Log4j2
 @RequiredArgsConstructor

@@ -1,4 +1,4 @@
-package org.touchhome.bundle.gpio.gpio;
+package org.homio.bundle.gpio.gpio;
 
 import com.pi4j.context.Context;
 import com.pi4j.platform.Platform;
@@ -9,7 +9,7 @@ import com.pi4j.util.Console;
 import java.io.PrintStream;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
-import org.touchhome.bundle.api.util.LogOutputStream;
+import org.homio.bundle.api.util.LogOutputStream;
 
 public class GpioUtil {
 

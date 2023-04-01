@@ -1,15 +1,15 @@
-package org.touchhome.bundle.gpio;
+package org.homio.bundle.gpio;
 
 import com.pi4j.io.gpio.digital.PullResistance;
 import java.util.HashSet;
 import java.util.stream.Collectors;
 import lombok.extern.log4j.Log4j2;
+import org.homio.bundle.gpio.gpio.GpioPin;
+import org.homio.bundle.gpio.gpio.GpioPinEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.touchhome.bundle.api.EntityContext;
-import org.touchhome.bundle.api.repository.AbstractRepository;
-import org.touchhome.bundle.gpio.gpio.GpioPin;
-import org.touchhome.bundle.gpio.gpio.GpioPinEntity;
+import org.homio.bundle.api.EntityContext;
+import org.homio.bundle.api.repository.AbstractRepository;
 
 @Log4j2
 @Repository

@@ -1,4 +1,4 @@
-package org.touchhome.bundle.gpio.gpio;
+package org.homio.bundle.gpio.gpio;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pi4j.io.gpio.digital.PullResistance;
@@ -6,18 +6,18 @@ import java.util.Set;
 import javax.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
-import org.touchhome.bundle.api.entity.PinBaseEntity;
-import org.touchhome.bundle.api.state.State;
-import org.touchhome.bundle.api.ui.field.UIField;
-import org.touchhome.bundle.api.ui.field.UIFieldColorPicker;
-import org.touchhome.bundle.api.ui.field.UIFieldIgnore;
-import org.touchhome.bundle.api.ui.field.color.UIFieldColorRef;
-import org.touchhome.bundle.api.ui.field.condition.UIFieldDisableEditOnCondition;
-import org.touchhome.bundle.api.ui.field.inline.UIFieldInlineEntityEditWidth;
-import org.touchhome.bundle.api.ui.field.inline.UIFieldInlineEntityWidth;
-import org.touchhome.bundle.gpio.GpioEntity;
-import org.touchhome.bundle.gpio.RaspberryGpioPin;
-import org.touchhome.bundle.gpio.gpio.mode.PinMode;
+import org.homio.bundle.api.entity.PinBaseEntity;
+import org.homio.bundle.api.state.State;
+import org.homio.bundle.api.ui.field.UIField;
+import org.homio.bundle.api.ui.field.UIFieldColorPicker;
+import org.homio.bundle.api.ui.field.UIFieldIgnore;
+import org.homio.bundle.api.ui.field.color.UIFieldColorRef;
+import org.homio.bundle.api.ui.field.condition.UIFieldDisableEditOnCondition;
+import org.homio.bundle.api.ui.field.inline.UIFieldInlineEntityEditWidth;
+import org.homio.bundle.api.ui.field.inline.UIFieldInlineEntityWidth;
+import org.homio.bundle.gpio.GpioEntity;
+import org.homio.bundle.gpio.RaspberryGpioPin;
+import org.homio.bundle.gpio.gpio.mode.PinMode;
 
 @Getter
 @Setter

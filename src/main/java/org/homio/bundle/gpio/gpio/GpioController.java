@@ -1,4 +1,4 @@
-package org.touchhome.bundle.gpio.gpio;
+package org.homio.bundle.gpio.gpio;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.touchhome.bundle.api.EntityContext;
-import org.touchhome.bundle.api.entity.BaseEntity;
-import org.touchhome.bundle.api.model.OptionModel;
-import org.touchhome.bundle.gpio.GpioEntity;
-import org.touchhome.bundle.gpio.gpio.mode.PinMode;
+import org.homio.bundle.api.EntityContext;
+import org.homio.bundle.api.entity.BaseEntity;
+import org.homio.bundle.api.model.OptionModel;
+import org.homio.bundle.gpio.GpioEntity;
+import org.homio.bundle.gpio.gpio.mode.PinMode;
 
 @RestController
 @RequiredArgsConstructor

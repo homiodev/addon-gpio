@@ -1,10 +1,10 @@
-package org.touchhome.bundle.gpio.gpio.mode;
+package org.homio.bundle.gpio.gpio.mode;
 
 import com.pi4j.context.Context;
 import com.pi4j.io.IO;
-import org.touchhome.bundle.api.state.State;
-import org.touchhome.bundle.gpio.gpio.GpioProviderIdModel;
-import org.touchhome.bundle.gpio.gpio.GpioState;
+import org.homio.bundle.gpio.gpio.GpioProviderIdModel;
+import org.homio.bundle.gpio.gpio.GpioState;
+import org.homio.bundle.api.state.State;
 
 public interface GpioModeFactory<T extends IO> {
 
