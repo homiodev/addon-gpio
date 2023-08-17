@@ -13,9 +13,7 @@
     "oneWireInterval": "1-Wire interval"
   },
   "help": {
-    "field": {
       "oneWireInterval": "Minimum interval to fetch new value from 1-Wire device. Otherwise cached value used"
-    }
   },
   "selection": {
     "GpioEntity": "Gpio service"

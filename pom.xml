@@ -2,8 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <artifactId>addon-gpio</artifactId>
 
-  <properties>
-    <category>Microcontrollers</category>
+  <properties>   
     <pi4j.version>2.3.0</pi4j.version>
   </properties>
 
