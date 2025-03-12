@@ -24,13 +24,13 @@
     "SET_HIGH": "Set HIGH state",
     "SET_LOW": "Set LOW state"
   },
+  "WORKSPACE": {
+    "gpio": "Gpio"
+  },
   "workspace": {
-    "gpio": "Gpio",
     "gpio_set_gpio": "Set gpio pin value",
-    "gpio_set_pwm_gpio": "Set gpio pin pwm(0-255) value",
     "gpio_get_gpio": "Get gpio pin value",
-    "gpio_set_pull": "Set gpio pin pull",
     "gpio_when_gpio": "Handle next block when gpio switched to state",
-    "gpio_DS18B20_value": "Get DS18B20 temperature value"
+    "gpio_DS18B20_status": "Get DS18B20 temperature value"
   }
 }

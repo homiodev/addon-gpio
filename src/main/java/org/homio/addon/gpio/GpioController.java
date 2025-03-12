@@ -20,16 +20,12 @@ public class GpioController {
 
   private final Context context;
 
-   /* @GetMapping("/device/DS18B20")
-    public List<BaseEntity> getRaspberryDS18B20() {
-        List<BaseEntity> list = new ArrayList<>();
-        List<GpioEntity> entities = context.db().findAll(GpioEntity.class);
-        for (GpioEntity entity : entities) {
-            list.addAll(entity.getService().getDS18B20()
-                              .stream().map(s -> BaseEntity.fakeEntity(s).setName(s)).toList());
-        }
-        return list;
-    }*/
+  @GetMapping("/device/DS18B20")
+  public List<OptionModel> getRaspberryDS18B20(@RequestParam("rpiIdMenu") String rpiIdMenu) {
+    GpioEntity gpioEntity = context.db().getRequire(rpiIdMenu);
+    return gpioEntity.getService().getDS18B20()
+      .stream().map(s -> OptionModel.of(s, s)).toList();
+  }
 
   @GetMapping("/pin/{mode}")
   public List<OptionModel> getPins(@PathVariable("mode") Mode mode, @RequestParam("rpiIdMenu") String rpiIdMenu) {

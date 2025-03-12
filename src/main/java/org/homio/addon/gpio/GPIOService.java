@@ -21,6 +21,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.homio.api.Context;
+import org.homio.api.model.Icon;
 import org.homio.api.service.EntityService;
 import org.homio.api.state.State;
 import org.jetbrains.annotations.NotNull;
@@ -36,7 +37,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Random;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -57,9 +57,6 @@ public class GPIOService extends EntityService.ServiceInstance<GpioEntity> {
   public GPIOService(Context context, GpioEntity entity) {
     super(context, entity, true, "GPIO");
     this.pi4j = createContext();
-    for (GpioPin pin : RaspberryGpioPin.getGpioPins()) {
-      this.endpoints.put(String.valueOf(pin.getAddress()), new GpioPinEndpoint(pin, entity, this));
-    }
   }
 
   public @Nullable State getState(int address) {
@@ -69,10 +66,7 @@ public class GPIOService extends EntityService.ServiceInstance<GpioEntity> {
 
   public void setValue(int address, State state) {
     var endpoint = getEndpoints().get(String.valueOf(address));
-    if (!Objects.equals(endpoint.getValue(), state)) {
-      context.var().set("rpi_" + entity.getEntityID() + "_" + address, state);
-      endpoint.getMode().getGpioModeFactory().setState(endpoint.getInstance(), state);
-    }
+    endpoint.setValue(state, true);
   }
 
   public void addGpioListener(String name, int address, Consumer<State> listener) {
@@ -197,6 +191,21 @@ public class GPIOService extends EntityService.ServiceInstance<GpioEntity> {
 
   @Override
   protected void initialize() {
+    endpoints.clear();
+    context.var().createGroup("gpio", "GPIO", builder ->
+      builder.setLocked(true).setIcon(new Icon("fas fa-keyboard", "#92BA1A")));
+    // ensure variable exists
+    /*for (GpioPin gpioPin : RaspberryGpioPin.getGpioPins()) {
+      String varId = "rpi_" + entity.getEntityID() + "_" + gpioPin.getAddress();
+      context.var().createVariable(entity.getEntityID(), varId,
+        gpioPin.getName(), ContextVar.VariableType.Bool, builder ->
+          builder.setDescription(gpioPin.getDescription())
+            .setIcon(gpioPin.getIcon()));
+    }*/
+    for (GpioPin pin : RaspberryGpioPin.getGpioPins()) {
+      endpoints.put(String.valueOf(pin.getAddress()), new GpioPinEndpoint(pin, entity, this));
+    }
+
     GpioUtil.printInfo(pi4j, log);
     for (GpioPinEndpoint endpoint : endpoints.values()) {
       createOrUpdateState(endpoint, false);

@@ -18,7 +18,7 @@ public class DigitalInputModeFactory implements GpioModeFactory<DigitalInput> {
   private static void handler(GpioPinEndpoint endpoint, DigitalStateChangeEvent event) {
     OnOffType state = OnOffType.of(event.state().isHigh());
     if (!Objects.equals(endpoint.getValue(), state)) {
-      endpoint.setLastState(state);
+      endpoint.setValueFromDevice(state);
       for (Consumer<State> listener : endpoint.getListeners().values()) {
         listener.accept(state);
       }

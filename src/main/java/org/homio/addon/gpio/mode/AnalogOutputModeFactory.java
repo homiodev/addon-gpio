@@ -18,7 +18,7 @@ public class AnalogOutputModeFactory implements GpioModeFactory<AnalogOutput> {
   private static void handler(GpioPinEndpoint endpoint, AnalogValueChangeEvent event) {
     DecimalType state = new DecimalType(new BigDecimal(event.value()), new BigDecimal(event.oldValue()));
     if (state.equalToOldValue()) {
-      endpoint.setLastState(state);
+      endpoint.setValueFromDevice(state);
       for (Consumer<State> listener : endpoint.getListeners().values()) {
         listener.accept(state);
       }

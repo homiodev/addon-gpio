@@ -1,10 +1,7 @@
-package org.homio.addon.gpio.service;
+package org.homio.addon.gpio;
 
 import lombok.Getter;
-import org.homio.addon.gpio.GPIOService;
 import org.homio.addon.gpio.GpioController.Mode;
-import org.homio.addon.gpio.GpioEntity;
-import org.homio.addon.gpio.GpioEntrypoint;
 import org.homio.api.Context;
 import org.homio.api.state.DecimalType;
 import org.homio.api.state.OnOffType;
