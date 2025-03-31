@@ -92,7 +92,7 @@ public final class GpioEntity extends MicroControllerBaseEntity
 
   @Override
   public long getEntityServiceHashCode() {
-    return 0;
+    return getChildEntityHashCode();
   }
 
   @Override

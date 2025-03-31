@@ -10,6 +10,8 @@ import lombok.extern.log4j.Log4j2;
 import org.apache.commons.text.WordUtils;
 import org.homio.addon.gpio.mode.PinMode;
 import org.homio.api.Context;
+import org.homio.api.model.ActionResponseModel;
+import org.homio.api.model.Icon;
 import org.homio.api.model.OptionModel;
 import org.homio.api.model.endpoint.BaseDeviceEndpoint;
 import org.homio.api.state.DecimalType;
@@ -20,6 +22,7 @@ import org.homio.api.ui.field.action.v1.UIInputBuilder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +35,7 @@ public class GpioPinEndpoint extends BaseDeviceEndpoint<GpioEntity> {
   private final Map<String, Consumer<State>> listeners = new HashMap<>();
   private final GpioPin gpioPin;
   private final GPIOService service;
-  private GpioEntity entity;
+  private final GpioEntity entity;
   private PinMode mode;
   private PullResistance pull;
   @Setter
@@ -43,9 +46,12 @@ public class GpioPinEndpoint extends BaseDeviceEndpoint<GpioEntity> {
     this.gpioPin = gpioPin;
     this.entity = entity;
     this.service = service;
-    var gpioDto = findGpioDto();
-    this.pull = gpioDto.pull;
-    this.mode = gpioDto.mode;
+
+    var dto = findGpioDto();
+    this.pull = dto.pull;
+    this.mode = dto.mode;
+    setIcon(dto.icon);
+    gpioPin.setName(dto.name);
     setUpdateHandler(state -> mode.getGpioModeFactory().setState(instance, state));
     // writable after updateHandler
     setWritable();
@@ -60,9 +66,10 @@ public class GpioPinEndpoint extends BaseDeviceEndpoint<GpioEntity> {
       case PWM -> setEndpointType(EndpointType.number);
     }
     if (getVariableID() != null && prevEndpointType != getEndpointType()) {
-      deleteVariableID();
+      recreateVariable();
+    } else {
+      getOrCreateVariable();
     }
-    getOrCreateVariable();
 
     State value = getValue();
     if (getEndpointType() == EndpointType.bool) {
@@ -127,7 +134,7 @@ public class GpioPinEndpoint extends BaseDeviceEndpoint<GpioEntity> {
       if (mode != this.mode) {
         this.mode = mode;
         setWritable();
-        fireReloadGpioPin(context);
+        fireReloadGpioPin();
       }
       return null;
     }).setValue(mode.name()).setOptions(modeSelectionList).setSeparatedText("field.pinMode");
@@ -137,35 +144,70 @@ public class GpioPinEndpoint extends BaseDeviceEndpoint<GpioEntity> {
 
       if (pullResistance != this.pull) {
         this.pull = pullResistance;
-        fireReloadGpioPin(context);
+        fireReloadGpioPin();
       }
       return null;
     }).setValue(pull.name()).setOptions(OptionModel.enumList(PullResistance.class)).setSeparatedText("field.pullResistance");
+    settingsBuilder.addIconPicker(getEntityID() + "icon", getIcon().getIcon())
+      .setActionHandler((context, params) ->
+        updateIcon(context, new Icon(params.getString("value"), getIcon().getColor())))
+      .setSeparatedText("field.icon");
+    settingsBuilder.addColorPicker(getEntityID() + "color", getIcon().getColor())
+      .setActionHandler((context, params) ->
+        updateIcon(context, new Icon(getIcon().getIcon(), params.getString("value"))))
+      .setSeparatedText("field.iconColor");
+    settingsBuilder.addTextInput(getEntityID() + "name", gpioPin.getName(), true)
+      .setRequireApply(true)
+      .setActionHandler((context, params) -> {
+        gpioPin.setName(params.getString("value"));
+        updateEntityDto();
+        // fire update variable name
+        recreateVariable();
+        return null;
+      })
+      .setSeparatedText("field.name");
     return settingsBuilder;
   }
 
-  private void fireReloadGpioPin(Context context) {
+  private void fireReloadGpioPin() {
     this.service.createOrUpdateState(this, true);
-    GpioEntity model = context.db().getRequire(entity.getEntityID());
-    updateGpioDto(model);
-    this.entity = context.db().save(model);
+    updateEntityDto();
   }
 
-  private void updateGpioDto(GpioEntity entity) {
-    List<GpioDto> gpioList = entity.getJsonDataList("gpio", GpioDto.class);
-    boolean found = false;
-    for (GpioDto gpioDto : gpioList) {
-      if (gpioDto.address == gpioPin.getAddress()) {
-        gpioDto.pull = pull;
-        gpioDto.mode = mode;
-        found = true;
-        break;
+  // delay save icon if a user wants to change it
+  private ActionResponseModel updateIcon(Context context, Icon icon) {
+    context.bgp().builder(getEntityID() + "-request-change-icon-color")
+      .delay(Duration.ofSeconds(3))
+      .execute(() -> {
+        recreateVariable();
+        setIcon(icon);
+        updateEntityDto();
+      });
+    return null;
+  }
+
+  private void updateEntityDto() {
+    var updated = entity.tryUpdateEntity(() -> {
+      List<GpioDto> gpioList = entity.getJsonDataList("gpio", GpioDto.class);
+      boolean found = false;
+      for (GpioDto gpioDto : gpioList) {
+        if (gpioDto.address == gpioPin.getAddress()) {
+          gpioDto.pull = pull;
+          gpioDto.mode = mode;
+          gpioDto.name = gpioPin.getName();
+          gpioDto.icon = getIcon();
+          found = true;
+          break;
+        }
       }
+      if (!found) {
+        gpioList.add(new GpioDto(gpioPin.getAddress(), pull, mode, getIcon(), gpioPin.getName()));
+      }
+      entity.setJsonDataObject("gpio", gpioList);
+    });
+    if (updated) {
+      context().db().save(entity);
     }
-    if (!found) {
-      gpioList.add(new GpioDto(gpioPin.getAddress(), pull, mode));
-    }
-    entity.setJsonDataObject("gpio", gpioList);
   }
 
   private GpioDto findGpioDto() {
@@ -175,7 +217,7 @@ public class GpioPinEndpoint extends BaseDeviceEndpoint<GpioEntity> {
         return gpioDto;
       }
     }
-    return new GpioDto(gpioPin.getAddress(), PullResistance.PULL_DOWN, PinMode.DIGITAL_INPUT);
+    return new GpioDto(gpioPin.getAddress(), PullResistance.PULL_DOWN, PinMode.DIGITAL_INPUT, getIcon(), gpioPin.getName());
   }
 
   @Override
@@ -190,5 +232,7 @@ public class GpioPinEndpoint extends BaseDeviceEndpoint<GpioEntity> {
     private int address;
     private PullResistance pull;
     private PinMode mode;
+    private Icon icon;
+    private String name;
   }
 }

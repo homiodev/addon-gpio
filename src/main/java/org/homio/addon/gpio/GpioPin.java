@@ -3,10 +3,10 @@ package org.homio.addon.gpio;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.homio.addon.gpio.mode.PinMode;
 import org.homio.api.model.Icon;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Set;
 
@@ -17,8 +17,9 @@ public class GpioPin implements Comparable<GpioPin> {
 
   private int address;
   private @NotNull String description;
+  @Setter
   private @NotNull String name;
-  private @Nullable Icon icon;
+  private @NotNull Icon icon;
   private Set<PinMode> supportModes;
 
   @Override
