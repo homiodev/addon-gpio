@@ -89,7 +89,7 @@ public class Scratch3GpioBlocks extends Scratch3ExtensionBlocks {
     int address = getAddress(workspaceBlock, menuDigitalInputPin);
     workspaceBlock.handleNext(next -> {
       OnOffType expectedState = OnOffType.of(workspaceBlock.getMenuValue("ONOFF", this.menuOnOff) == OnOffType.OnOffTypeEnum.On);
-      var lock = workspaceBlock.getLockManager().getLock(workspaceBlock);
+      var lock = workspaceBlock.getLockManager().createLock(workspaceBlock);
       GpioEntity entity = workspaceBlock.getMenuValueEntityRequired("RPI", this.rpiIdMenu);
       GPIOService gpioService = entity.getService();
 

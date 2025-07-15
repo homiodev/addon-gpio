@@ -3,19 +3,19 @@ package org.homio.addon.gpio;
 import jakarta.persistence.Entity;
 import org.homio.api.Context;
 import org.homio.api.entity.CreateSingleEntity;
+import org.homio.api.entity.device.DeviceBaseEntity;
 import org.homio.api.entity.device.DeviceEndpointsBehaviourContract;
 import org.homio.api.entity.log.HasEntityLog;
-import org.homio.api.entity.types.MicroControllerBaseEntity;
 import org.homio.api.model.OptionModel;
 import org.homio.api.model.device.ConfigDeviceDefinition;
 import org.homio.api.model.endpoint.DeviceEndpoint;
 import org.homio.api.service.EntityService;
-import org.homio.api.ui.UISidebarChildren;
 import org.homio.api.ui.field.UIField;
 import org.homio.api.ui.field.UIFieldSlider;
 import org.homio.api.ui.field.action.v1.UIInputBuilder;
 import org.homio.api.ui.field.selection.dynamic.DynamicOptionLoader;
 import org.homio.api.ui.field.selection.dynamic.UIFieldDynamicSelection;
+import org.homio.api.ui.route.UIRouteMicroController;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -25,9 +25,9 @@ import static org.homio.addon.gpio.GPIOService.GPIO_PROVIDERS;
 
 @SuppressWarnings({"JpaAttributeTypeInspection", "unused"})
 @Entity
-@UISidebarChildren(icon = "fas fa-keyboard", color = "#92BA1A")
+@UIRouteMicroController(icon = "fas fa-keyboard", color = "#92BA1A")
 @CreateSingleEntity
-public final class GpioEntity extends MicroControllerBaseEntity
+public final class GpioEntity extends DeviceBaseEntity
   implements DeviceEndpointsBehaviourContract, EntityService<GPIOService>, HasEntityLog {
 
   @UIField(order = 4)
@@ -63,11 +63,6 @@ public final class GpioEntity extends MicroControllerBaseEntity
   @Override
   public void logBuilder(EntityLogBuilder entityLogBuilder) {
     entityLogBuilder.addTopic("org.homio.bundle.gpio");
-  }
-
-  @Override
-  public @NotNull Class<GPIOService> getEntityServiceItemClass() {
-    return GPIOService.class;
   }
 
   @Override
